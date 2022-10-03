@@ -41,11 +41,24 @@ const rows = [
 ];
 
 export default function TodoTable() {
-  const [value, setValue] = React.useState(dayjs("2014-08-18T21:11:54"));
+  const [dateValue, setDateValue] = React.useState("");
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
+  const onDateInput = (event) => {
+    setDateValue(event.target.value);
   };
+
+  const [module, setModule] = React.useState("");
+
+  const onModuleInput = (event) => {
+    setModule(event.target.value);
+  };
+
+  const [task, setTask] = React.useState("");
+
+  const onTaskInput = (event) => {
+    setTask(event.target.value);
+  };
+  const [id, setId] = React.useState(4);
 
   return (
     <TableContainer component={Paper} sx={{ maxWidth: "600px" }}>
@@ -62,7 +75,27 @@ export default function TodoTable() {
               <Typography variant="h6">To-do List</Typography>
             </TableCell>
             <TableCell align="right" sx={{ borderBottom: "none" }}>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  if (task != "" && module != "" && dateValue != "") {
+                    rows.push({
+                      task: task,
+                      module: module,
+                      date:
+                        dateValue.split("-")[1] +
+                        "/" +
+                        dateValue.split("-")[2] +
+                        "/" +
+                        dateValue.split("-")[0],
+                      id: id,
+                    }),
+                      setId(id + 1),
+                      console.log(rows);
+                  }
+                }}
+              >
                 Add New
               </Button>
             </TableCell>
@@ -70,22 +103,30 @@ export default function TodoTable() {
           <TableRow>
             <TableCell padding="checkbox" />
             <TableCell>
-              <TextField label="Task"></TextField>
+              <TextField
+                label="Task"
+                value={task}
+                onChange={onTaskInput}
+              ></TextField>
             </TableCell>
             <TableCell align="center">
-              <TextField label="Module"></TextField>
+              <TextField
+                label="Module"
+                value={module}
+                onChange={onModuleInput}
+              ></TextField>
             </TableCell>
             <TableCell align="right">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Date"
-                  value={value}
-                  onChange={(newValue) => {
-                    setValue(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+              <TextField
+                id="date"
+                label="Date"
+                type="date"
+                sx={{ width: 220 }}
+                onChange={onDateInput}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
             </TableCell>
           </TableRow>
         </TableHead>
