@@ -14,33 +14,13 @@ import {
   Typography,
 } from "@mui/material";
 
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
-const rows = [
-  {
-    task: "Buy some bread and milk",
-    module: "A Label",
-    date: "9/18/1998",
-    id: 1,
-  },
-  {
-    task: "Buy some milk and bread",
-    module: "A Label",
-    date: "11/03/2001",
-    id: 2,
-  },
-  {
-    task: "Buy some bread, and, milk",
-    module: "A Label",
-    date: "11/17/2004",
-    id: 3,
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { PREPEND } from "../redux/todosSlice";
 
 export default function TodoTable() {
+  const rows = useSelector((state) => state.todo.todos);
+  const dispatch = useDispatch();
+
   const [dateValue, setDateValue] = React.useState("");
 
   const onDateInput = (event) => {
@@ -80,17 +60,17 @@ export default function TodoTable() {
                 color="secondary"
                 onClick={() => {
                   if (task != "" && module != "" && dateValue != "") {
-                    rows.push({
-                      task: task,
-                      module: module,
-                      date:
-                        dateValue.split("-")[1] +
-                        "/" +
-                        dateValue.split("-")[2] +
-                        "/" +
-                        dateValue.split("-")[0],
-                      id: id,
-                    }),
+                    dispatch(
+                      PREPEND({
+                        task: task,
+                        module: module,
+                        date:
+                          dateValue.split("T")[0] +
+                          "\n" +
+                          dateValue.split("T")[1],
+                        id: id,
+                      })
+                    ),
                       setId(id + 1),
                       console.log(rows);
                   }
@@ -120,7 +100,7 @@ export default function TodoTable() {
               <TextField
                 id="date"
                 label="Date"
-                type="date"
+                type="datetime-local"
                 sx={{ width: 220 }}
                 onChange={onDateInput}
                 InputLabelProps={{

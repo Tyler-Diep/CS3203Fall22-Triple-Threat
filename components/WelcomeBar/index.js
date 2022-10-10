@@ -1,5 +1,6 @@
 import { Box, ListItem, List, ListItemText } from "@mui/material";
 import styles from "../../styles/Home.module.css";
+import { Link } from "next/link";
 
 const WelcomeBar = () => {
   return (
