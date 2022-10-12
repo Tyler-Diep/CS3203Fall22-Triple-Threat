@@ -2,12 +2,10 @@ import Head from "next/head";
 import { ThemeProvider } from "@mui/material";
 import { appTheme } from "../themes/theme";
 import styles from "../styles/Home.module.css";
-import TodoTable from "../components/TodoTable";
+import DeletedTable from "../components/DeletedTable";
 import WelcomeHeader from "../components/WelcomeHeader";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useUser } from "@auth0/nextjs-auth0/";
-import { Stack, Button } from "@mui/material";
-import Link from "next/link";
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
@@ -38,25 +36,7 @@ export default function Home() {
 
             <main className={styles.main}>
               <WelcomeHeader />
-              <Stack direction="row" spacing={2}>
-                <Link href="/">
-                  <Button variant="contained" color="secondary">
-                    Todo List
-                  </Button>
-                </Link>
-                <Link href="/modules">
-                  <Button variant="contained" color="secondary">
-                    Filter by Modules
-                  </Button>
-                </Link>
-
-                <Link href="/deleted">
-                  <Button variant="contained" color="primary">
-                    Deleted Items
-                  </Button>
-                </Link>
-              </Stack>
-              <TodoTable />
+              <DeletedTable />
               <a href="/api/auth/logout">Logout</a>
             </main>
           </div>

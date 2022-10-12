@@ -12,10 +12,13 @@ import {
   Paper,
   Button,
   Typography,
+  IconButton,
 } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
-import { PREPEND } from "../redux/todosSlice";
+import { PREPEND, REMOVE, PREPEND_DELETE } from "../redux/todosSlice";
+
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function TodoTable() {
   const rows = useSelector((state) => state.todo.todos);
@@ -39,6 +42,11 @@ export default function TodoTable() {
     setTask(event.target.value);
   };
   const [id, setId] = React.useState(4);
+
+  const onClickDelete = (todoID, todo) => {
+    dispatch(PREPEND_DELETE(todo));
+    dispatch(REMOVE(todoID));
+  };
 
   return (
     <TableContainer component={Paper} sx={{ maxWidth: "600px" }}>
@@ -121,6 +129,15 @@ export default function TodoTable() {
                 <Chip label={row.module} color="info" />
               </TableCell>
               <TableCell align="right">{row.date}</TableCell>
+              <TableCell padding="checkbox">
+                <IconButton
+                  edge="end"
+                  aria-label="comments"
+                  onClick={() => onClickDelete(row.id, row)}
+                >
+                  <DeleteIcon />
+                </IconButton>{" "}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

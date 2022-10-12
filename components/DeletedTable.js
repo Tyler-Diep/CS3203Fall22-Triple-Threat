@@ -17,8 +17,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 
-export default function ModuleTable() {
-  const rows = useSelector((state) => state.todo.todos);
+export default function DeletedTable() {
+  const rows = useSelector((state) => state.todo.deleted);
 
   const [moduleFilter, setModuleFilter] = React.useState("");
 
@@ -28,20 +28,18 @@ export default function ModuleTable() {
     console.log(rows);
   };
 
-  const filteredElements = rows
-    .filter((e) => e.module.includes(moduleFilter))
-    .map((e) => (
-      <TableRow key={e.id}>
-        <TableCell padding="checkbox">
-          <Checkbox color="success"></Checkbox>
-        </TableCell>
-        <TableCell>{e.task}</TableCell>
-        <TableCell align="center">
-          <Chip label={e.module} color="info" />
-        </TableCell>
-        <TableCell align="right">{e.date}</TableCell>
-      </TableRow>
-    ));
+  const filteredElements = rows.map((e) => (
+    <TableRow key={e.id}>
+      <TableCell padding="checkbox">
+        <Checkbox color="success"></Checkbox>
+      </TableCell>
+      <TableCell>{e.task}</TableCell>
+      <TableCell align="center">
+        <Chip label={e.module} color="info" />
+      </TableCell>
+      <TableCell align="right">{e.date}</TableCell>
+    </TableRow>
+  ));
 
   return (
     <div>
@@ -57,11 +55,9 @@ export default function ModuleTable() {
           </Button>
         </Link>
 
-        <Link href="/deleted">
-          <Button variant="contained" color="primary">
-            Deleted Items
-          </Button>
-        </Link>
+        <Button variant="contained" color="primary">
+          Deleted Items
+        </Button>
       </Stack>
       <TableContainer component={Paper} sx={{ maxWidth: "600px" }}>
         <Table>
@@ -74,18 +70,12 @@ export default function ModuleTable() {
                   borderBottom: "none",
                 }}
               >
-                <Typography variant="h6">Module List</Typography>
+                <Typography variant="h6">Deleted List</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell padding="checkbox" />
-              <TableCell align="center">
-                <TextField
-                  label="Filter Module"
-                  value={moduleFilter}
-                  onChange={onModuleInput}
-                ></TextField>
-              </TableCell>
+              <TableCell align="center"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>{filteredElements}</TableBody>
