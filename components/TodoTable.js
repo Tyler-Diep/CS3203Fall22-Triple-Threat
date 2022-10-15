@@ -13,6 +13,8 @@ import {
   Button,
   Typography,
   IconButton,
+  Card,
+  CardActions,
 } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -49,99 +51,103 @@ export default function TodoTable() {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ maxWidth: "600px" }}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell
-              align="left"
-              colSpan={3}
-              sx={{
-                borderBottom: "none",
-              }}
-            >
-              <Typography variant="h6">To-do List</Typography>
-            </TableCell>
-            <TableCell align="right" sx={{ borderBottom: "none" }}>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() => {
-                  if (task != "" && module != "" && dateValue != "") {
-                    dispatch(
-                      PREPEND({
-                        task: task,
-                        module: module,
-                        date:
-                          dateValue.split("T")[0] +
-                          "\n" +
-                          dateValue.split("T")[1],
-                        id: id,
-                      })
-                    ),
-                      setId(id + 1),
-                      console.log(rows);
-                  }
+    <React.Fragment>
+      <Card sx={{ m: 2 }}>
+        <CardActions>
+          <TextField sx={{ m: 1 }}
+            label="Task"
+            value={task}
+            onChange={onTaskInput}>
+          </TextField>
+          <TextField sx={{ m: 1 }}
+            label="Module"
+            value={module}
+            onChange={onModuleInput}>
+          </TextField>
+          <TextField
+            id="date"
+            label="Date"
+            type="datetime-local"
+            sx={{ width: 220, m: 1 }}
+            onChange={onDateInput}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <Button sx={{ m: 1 }}
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              if (task != "" && module != "" && dateValue != "") {
+                dispatch(
+                  PREPEND({
+                    task: task,
+                    module: module,
+                    date:
+                      dateValue.split("T")[0] +
+                      "\n" +
+                      dateValue.split("T")[1],
+                    id: id,
+                  })
+                ),
+                  setId(id + 1),
+                  console.log(rows);
+              }
+            }}
+          >
+            Add New
+          </Button>
+        </CardActions>
+      </Card>
+      <TableContainer component={Paper} sx={{ maxWidth: "750px" }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell
+                align="left"
+                colSpan={3}
+                sx={{
+                  borderBottom: "none",
                 }}
               >
-                Add New
-              </Button>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell padding="checkbox" />
-            <TableCell>
-              <TextField
-                label="Task"
-                value={task}
-                onChange={onTaskInput}
-              ></TextField>
-            </TableCell>
-            <TableCell align="center">
-              <TextField
-                label="Module"
-                value={module}
-                onChange={onModuleInput}
-              ></TextField>
-            </TableCell>
-            <TableCell align="right">
-              <TextField
-                id="date"
-                label="Date"
-                type="datetime-local"
-                sx={{ width: 220 }}
-                onChange={onDateInput}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell padding="checkbox">
-                <Checkbox color="success"></Checkbox>
+                <Typography variant="h6">To-do List</Typography>
               </TableCell>
-              <TableCell>{row.task}</TableCell>
-              <TableCell align="center">
-                <Chip label={row.module} color="info" />
-              </TableCell>
-              <TableCell align="right">{row.date}</TableCell>
-              <TableCell padding="checkbox">
-                <IconButton
-                  edge="end"
-                  aria-label="comments"
-                  onClick={() => onClickDelete(row.id, row)}
-                >
-                  <DeleteIcon />
-                </IconButton>{" "}
+              <TableCell align="right" sx={{ borderBottom: "none" }}>
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            <TableRow>
+              <TableCell padding="check"></TableCell>
+              <TableCell align="left">Task</TableCell>
+              <TableCell align="center">Module</TableCell>
+              <TableCell align="right">Date</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell padding="checkbox">
+                  <Checkbox color="success"></Checkbox>
+                </TableCell>
+                <TableCell>{row.task}</TableCell>
+                <TableCell align="center">
+                  <Chip label={row.module} color="info" />
+                </TableCell>
+                <TableCell align="right">{row.date}</TableCell>
+                <TableCell padding="checkbox">
+                  <IconButton
+                    edge="end"
+                    aria-label="comments"
+                    onClick={() => onClickDelete(row.id, row)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>{" "}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </React.Fragment>
   );
 }
