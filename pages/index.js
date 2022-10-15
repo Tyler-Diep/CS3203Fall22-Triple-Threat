@@ -17,10 +17,12 @@ export default function Home() {
   if (!user) {
     return (
       <ThemeProvider theme={appTheme}>
-        <main className={styles.main}>
-          <WelcomeHeader />
-          <a href="/api/auth/login">Login</a>
-        </main>
+        <CssBaseline>
+          <main className={styles.main}>
+            <WelcomeHeader />
+            <Link href="/api/auth/login"><Button variant="contained" color="success">Login</Button></Link>
+          </main>
+        </CssBaseline>
       </ThemeProvider>
     );
   }
@@ -36,6 +38,9 @@ export default function Home() {
               <link rel="icon" href="/favicon.ico" />
             </Head>
 
+            <header className={styles.header}>
+              <Link href="/api/auth/logout"><Button variant="contained" color="success">Logout</Button></Link>
+            </header>
             <main className={styles.main}>
               <WelcomeHeader />
               <Stack direction="row" spacing={2}>
@@ -57,7 +62,6 @@ export default function Home() {
                 </Link>
               </Stack>
               <TodoTable />
-              <a href="/api/auth/logout">Logout</a>
             </main>
           </div>
         </CssBaseline>
