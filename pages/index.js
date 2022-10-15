@@ -1,12 +1,9 @@
 import Head from "next/head";
-import { ThemeProvider } from "@mui/material";
-import { appTheme } from "../themes/theme";
 import styles from "../styles/Home.module.css";
 import TodoTable from "../components/TodoTable";
 import WelcomeHeader from "../components/WelcomeHeader";
-import CssBaseline from "@mui/material/CssBaseline";
 import { useUser } from "@auth0/nextjs-auth0/";
-import { Stack, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import Link from "next/link";
 
 export default function Home() {
@@ -16,21 +13,15 @@ export default function Home() {
   if (error) return <div>{error.message}</div>;
   if (!user) {
     return (
-      <ThemeProvider theme={appTheme}>
-        <CssBaseline>
           <main className={styles.main}>
             <WelcomeHeader />
             <Link href="/api/auth/login"><Button variant="contained" color="success">Login</Button></Link>
           </main>
-        </CssBaseline>
-      </ThemeProvider>
     );
   }
 
   return (
     user && (
-      <ThemeProvider theme={appTheme}>
-        <CssBaseline>
           <div className={styles.container}>
             <Head>
               <title>Your Agenda</title>
@@ -43,29 +34,9 @@ export default function Home() {
             </header>
             <main className={styles.main}>
               <WelcomeHeader />
-              <Stack direction="row" spacing={2}>
-                <Link href="/">
-                  <Button variant="contained" color="secondary">
-                    Todo List
-                  </Button>
-                </Link>
-                <Link href="/modules">
-                  <Button variant="contained" color="secondary">
-                    Filter by Modules
-                  </Button>
-                </Link>
-
-                <Link href="/deleted">
-                  <Button variant="contained" color="primary">
-                    Deleted Items
-                  </Button>
-                </Link>
-              </Stack>
               <TodoTable />
             </main>
           </div>
-        </CssBaseline>
-      </ThemeProvider>
     )
   );
 }
