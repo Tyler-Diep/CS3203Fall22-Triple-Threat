@@ -116,7 +116,7 @@ export default function TodoTable() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell padding="check"></TableCell>
+              <TableCell padding="checkbox"></TableCell>
               <TableCell align="left">Task</TableCell>
               <TableCell align="center">Module</TableCell>
               <TableCell align="right">Date</TableCell>
