@@ -45,24 +45,6 @@ export default function ModuleTable() {
 
   return (
     <div>
-      <Stack direction="row" spacing={2}>
-        <Link href="/">
-          <Button variant="contained" color="secondary">
-            Todo List
-          </Button>
-        </Link>
-        <Link href="/modules">
-          <Button variant="contained" color="secondary">
-            Filter by Modules
-          </Button>
-        </Link>
-
-        <Link href="/deleted">
-          <Button variant="contained" color="primary">
-            Deleted Items
-          </Button>
-        </Link>
-      </Stack>
       <TableContainer component={Paper} sx={{ maxWidth: "600px" }}>
         <Table>
           <TableHead>

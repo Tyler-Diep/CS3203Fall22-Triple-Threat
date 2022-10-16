@@ -43,22 +43,6 @@ export default function DeletedTable() {
 
   return (
     <div>
-      <Stack direction="row" spacing={2}>
-        <Link href="/">
-          <Button variant="contained" color="secondary">
-            Todo List
-          </Button>
-        </Link>
-        <Link href="/modules">
-          <Button variant="contained" color="secondary">
-            Filter by Modules
-          </Button>
-        </Link>
-
-        <Button variant="contained" color="primary">
-          Deleted Items
-        </Button>
-      </Stack>
       <TableContainer component={Paper} sx={{ maxWidth: "600px" }}>
         <Table>
           <TableHead>
