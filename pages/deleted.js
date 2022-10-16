@@ -2,9 +2,8 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import DeletedTable from "../components/DeletedTable";
 import WelcomeHeader from "../components/WelcomeHeader";
+import NavBar from "../components/NavBar";
 import { useUser } from "@auth0/nextjs-auth0/";
-import { Button } from "@mui/material";
-import Link from "next/link";
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
@@ -29,9 +28,7 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        <header className={styles.header}>
-          <Link href="/api/auth/logout"><Button variant="contained" color="success">Logout</Button></Link>
-        </header>
+        <NavBar />
         <main className={styles.main}>
           <WelcomeHeader />
           <DeletedTable />
