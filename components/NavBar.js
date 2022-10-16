@@ -13,6 +13,7 @@ export default function TableNav() {
         <Link href="/modules" passHref><Button color="secondary">Modules</Button></Link>
         <Button color="secondary">Completed Tasks</Button>
         <Link href="/deleted" passHref><Button color="secondary">Deleted Tasks</Button></Link>
+        <Link href="/api/auth/logout"><Button variant="contained" color="success">Logout</Button></Link>
         </Stack>
     )
 }
