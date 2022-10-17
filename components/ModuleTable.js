@@ -13,6 +13,8 @@ import {
   Button,
   Typography,
   Stack,
+  MenuItem,
+  Select,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
@@ -24,12 +26,15 @@ export default function ModuleTable() {
 
   const onModuleInput = (event) => {
     setModuleFilter(event.target.value);
-    rows = rows.filter((item) => item.module.includes(moduleFilter));
-    console.log(rows);
   };
 
+  const modules = Array.from(new Set(rows.map((item) => item.module)));
+  const menuItems = modules.map((item) => (
+    <MenuItem value={item}>{item}</MenuItem>
+  ));
+
   const filteredElements = rows
-    .filter((e) => e.module.includes(moduleFilter))
+    .filter((e) => e.module == moduleFilter)
     .map((e) => (
       <TableRow key={e.id}>
         <TableCell padding="checkbox">
@@ -63,10 +68,18 @@ export default function ModuleTable() {
               <TableCell padding="checkbox" />
               <TableCell align="center">
                 <TextField
+                  disabled
+                  label="Filter Module"
+                  value={moduleFilter}
+                ></TextField>
+
+                <Select
                   label="Filter Module"
                   value={moduleFilter}
                   onChange={onModuleInput}
-                ></TextField>
+                >
+                  {menuItems}
+                </Select>
               </TableCell>
             </TableRow>
           </TableHead>

@@ -46,8 +46,8 @@ export default function TodoTable() {
   const [id, setId] = React.useState(4);
 
   const onClickDelete = (todoID, todo) => {
-    dispatch(PREPEND_DELETE(todo));
-    dispatch(REMOVE(todoID));
+    dispatch(PREPEND_DELETE(todo)); // Add todo to the list of deleted todos
+    dispatch(REMOVE(todoID)); // Remove the todo from the list
   };
 
   return (

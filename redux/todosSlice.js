@@ -6,21 +6,10 @@ export const todosSlice = createSlice({
     todos: [
       {
         task: "Buy some bread and milk",
-        module: "A Label",
+        module: "Example",
         date: "9/18/1998",
+        time: "23:59",
         id: 1,
-      },
-      {
-        task: "Buy some milk and bread",
-        module: "A Label",
-        date: "11/03/2001",
-        id: 2,
-      },
-      {
-        task: "Buy some bread, and, milk",
-        module: "A Label",
-        date: "11/17/2004",
-        id: 3,
       },
     ],
     deleted: [],
