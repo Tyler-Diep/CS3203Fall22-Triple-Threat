@@ -18,7 +18,6 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-import { ViewModuleSharp } from "@mui/icons-material";
 
 export default function ModuleTable() {
   const rows = useSelector((state) => state.todo.todos);
@@ -27,8 +26,6 @@ export default function ModuleTable() {
 
   const onModuleInput = (event) => {
     setModuleFilter(event.target.value);
-    rows = rows.filter((item) => item.module.includes(moduleFilter));
-    console.log(rows);
   };
 
   const modules = Array.from(new Set(rows.map((item) => item.module)));
@@ -92,7 +89,6 @@ export default function ModuleTable() {
                   disabled
                   label="Filter Module"
                   value={moduleFilter}
-                  onChange={onModuleInput}
                 ></TextField>
 
                 <Select

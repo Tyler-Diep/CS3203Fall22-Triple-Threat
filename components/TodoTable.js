@@ -44,8 +44,8 @@ export default function TodoTable() {
   const [id, setId] = React.useState(4);
 
   const onClickDelete = (todoID, todo) => {
-    dispatch(PREPEND_DELETE(todo));
-    dispatch(REMOVE(todoID));
+    dispatch(PREPEND_DELETE(todo)); // Add todo to the list of deleted todos
+    dispatch(REMOVE(todoID)); // Remove the todo from the list
   };
 
   return (
@@ -68,14 +68,13 @@ export default function TodoTable() {
                 color="secondary"
                 onClick={() => {
                   if (task != "" && module != "" && dateValue != "") {
+                    const dates = dateValue.split("T")[0].split("-");
                     dispatch(
                       PREPEND({
                         task: task,
                         module: module,
-                        date:
-                          dateValue.split("T")[0] +
-                          "\n" +
-                          dateValue.split("T")[1],
+                        date: dates[1] + "/" + dates[2] + "/" + dates[0],
+                        time: dateValue.split("T")[1],
                         id: id,
                       })
                     ),
@@ -129,6 +128,8 @@ export default function TodoTable() {
                 <Chip label={row.module} color="info" />
               </TableCell>
               <TableCell align="right">{row.date}</TableCell>
+              <TableCell align="right">{row.time}</TableCell>
+
               <TableCell padding="checkbox">
                 <IconButton
                   edge="end"
