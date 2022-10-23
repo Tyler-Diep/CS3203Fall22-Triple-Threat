@@ -9,7 +9,7 @@ export const todosSlice = createSlice({
         module: "Example",
         date: "9-18-1998",
         time: "23:59",
-        completed: true,
+        completed: false,
         id: 1,
       },
     ],
