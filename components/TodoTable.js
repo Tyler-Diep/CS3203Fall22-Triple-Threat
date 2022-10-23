@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 
 import { useDispatch, useSelector } from "react-redux";
-import { PREPEND, REMOVE, PREPEND_DELETE } from "../redux/todosSlice";
+import { PREPEND, REMOVE, PREPEND_DELETE, TOGGLE_COMPLETED, PREPEND_COMPLETE, REMOVE_COMPLETE } from "../redux/todosSlice";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -43,12 +43,28 @@ export default function TodoTable() {
   const onTaskInput = (event) => {
     setTask(event.target.value);
   };
+
   const [id, setId] = React.useState(4);
+
+  const [checked, setChecked] = React.useState(false);
+
+  const onCheck = (event) => {
+    setChecked({...checked, [event.target.checked] : event.target.checked})
+  }
+
+  const onClickCheck = (todoID) => {
+    dispatch(TOGGLE_COMPLETED(todoID));
+  }
 
   const onClickDelete = (todoID, todo) => {
     dispatch(PREPEND_DELETE(todo)); // Add todo to the list of deleted todos
     dispatch(REMOVE(todoID)); // Remove the todo from the list
   };
+
+  const onClickClear = () => {
+    dispatch(PREPEND_COMPLETE()); // Add all checked tasks to the list of completed todos
+    dispatch(REMOVE_COMPLETE()); // Clear all checked tasks from the todo list
+  }
 
   return (
     <React.Fragment>
@@ -88,6 +104,7 @@ export default function TodoTable() {
                       "\n" +
                       dateValue.split("T")[1],
                     id: id,
+                    completed: false,
                   })
                 ),
                   setId(id + 1),
@@ -105,7 +122,7 @@ export default function TodoTable() {
             <TableRow>
               <TableCell
                 align="left"
-                colSpan={3}
+                colSpan={4}
                 sx={{
                   borderBottom: "none",
                 }}
@@ -113,6 +130,10 @@ export default function TodoTable() {
                 <Typography variant="h6">To-do List</Typography>
               </TableCell>
               <TableCell align="right" sx={{ borderBottom: "none" }}>
+                <Button 
+                variant="contained" 
+                color="success"
+                onClick={() => onClickClear()}>Clear</Button>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -127,7 +148,12 @@ export default function TodoTable() {
             {rows.map((row) => (
               <TableRow key={row.id}>
                 <TableCell padding="checkbox">
-                  <Checkbox color="success"></Checkbox>
+                  <Checkbox
+                  checked = {row.completed}
+                  onChange = {onCheck}
+                  onClick={() => onClickCheck(row.id)}
+                  color="success">
+                  </Checkbox>
                 </TableCell>
                 <TableCell>{row.task}</TableCell>
                 <TableCell align="center">
