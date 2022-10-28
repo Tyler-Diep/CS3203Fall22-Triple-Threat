@@ -34,7 +34,7 @@ export default function DeletedTable() {
 
   return (
     <div>
-      <TableContainer component={Paper} sx={{ maxWidth: "600px" }}>
+      <TableContainer component={Paper} sx={{ maxWidth: "750px" }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -45,12 +45,14 @@ export default function DeletedTable() {
                   borderBottom: "none",
                 }}
               >
-                <Typography variant="h6">Module List</Typography>
+                <Typography variant="h6">Deleted Tasks</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell padding="checkbox" />
-              <TableCell align="center"></TableCell>
+              <TableCell align="left">Task</TableCell>
+              <TableCell align="center">Module</TableCell>
+              <TableCell align="right">Date</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>{deletedElements}</TableBody>
