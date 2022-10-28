@@ -31,7 +31,7 @@ export const todosSlice = createSlice({
       todo.completed = !todo.completed;
     },
     PREPEND_COMPLETE: (state, action) => {
-      state.completed = state.todos.filter((todo) => todo.completed == true);
+      state.completed =  state.completed.concat(state.todos.filter((todo) => todo.completed == true));
     },
     REMOVE_COMPLETE: (state, action) => {
       state.todos = state.todos.filter((todo) => todo.completed == false);
