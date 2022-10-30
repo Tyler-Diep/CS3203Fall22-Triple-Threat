@@ -12,13 +12,26 @@ import {
   Button,
   Typography,
   Stack,
+  IconButton,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 
+import ReplyIcon from "@mui/icons-material/Reply";
+import { PREPEND, REMOVE_DELETE } from "../redux/todosSlice";
+
+
+
 export default function DeletedTable() {
+
+  // The rows in the deleted table will be the todo entries from the deleted list
   const rows = useSelector((state) => state.todo.deleted);
 
+  // Used to dispatch actions(ie add/remove from todo/deleted list)
+  const dispatch = useDispatch();
+
+
+  // The deleted list 
   const deletedElements = rows.map((e) => (
     <TableRow key={e.id}>
       <TableCell padding="checkbox">
@@ -29,8 +42,23 @@ export default function DeletedTable() {
         <Chip label={e.module} color="info" />
       </TableCell>
       <TableCell align="right">{e.date}</TableCell>
+      <TableCell padding="checkbox">
+                <IconButton
+                  edge="end"
+                  aria-label="comments"
+                  onClick={() => onClickDelete(e.id, e)}
+                >
+                  <ReplyIcon />
+                </IconButton>{" "}
+              </TableCell>
     </TableRow>
   ));
+
+  const onClickDelete = (todoID, todo) => {
+    dispatch(PREPEND(todo)); // Add todo to the list of regular todos
+    dispatch(REMOVE_DELETE(todoID)); // Remove the todo from the list
+  };
+
 
   return (
     <div>
