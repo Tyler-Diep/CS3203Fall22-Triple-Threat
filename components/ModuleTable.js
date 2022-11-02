@@ -15,6 +15,8 @@ import {
   Stack,
   MenuItem,
   Select,
+  Card,
+  CardActions,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
@@ -49,26 +51,24 @@ export default function ModuleTable() {
     ));
 
   return (
-    <div>
-      <Stack direction="row" spacing={2}>
-        <Link href="/">
-          <Button variant="contained" color="secondary">
-            Todo List
-          </Button>
-        </Link>
-        <Link href="/modules">
-          <Button variant="contained" color="secondary">
-            Filter by Modules
-          </Button>
-        </Link>
-
-        <Link href="/deleted">
-          <Button variant="contained" color="primary">
-            Deleted Items
-          </Button>
-        </Link>
-      </Stack>
-      <TableContainer component={Paper} sx={{ maxWidth: "600px" }}>
+    <React.Fragment>
+      <Card sx={{ m: 2 }}>
+        <CardActions>
+          <TextField
+            disabled
+            label="Filter Module"
+            value={moduleFilter}
+          ></TextField>
+          <Select
+            label="Filter Module"
+            value={moduleFilter}
+            onChange={onModuleInput}
+          >
+            {menuItems}
+          </Select>
+        </CardActions>
+      </Card>
+      <TableContainer component={Paper} sx={{ maxWidth: "750px" }}>
         <Table>
           <TableHead>
             <TableRow>
@@ -83,27 +83,16 @@ export default function ModuleTable() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell padding="checkbox" />
-              <TableCell align="center">
-                <TextField
-                  disabled
-                  label="Filter Module"
-                  value={moduleFilter}
-                ></TextField>
-
-                <Select
-                  label="Filter Module"
-                  value={moduleFilter}
-                  onChange={onModuleInput}
-                >
-                  {menuItems}
-                </Select>
-              </TableCell>
+              <TableCell padding="checkbox"></TableCell>
+              <TableCell align="left">Task</TableCell>
+              <TableCell align="center">Module</TableCell>
+              <TableCell align="right">Date</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>{filteredElements}</TableBody>
         </Table>
       </TableContainer>
-    </div>
+    </React.Fragment>
   );
 }
