@@ -5,7 +5,7 @@ import WelcomeHeader from "../components/WelcomeHeader";
 import NavBar from "../components/NavBar";
 import { useUser } from "@auth0/nextjs-auth0/";
 
-export default function Completed() {
+export default function Home() {
   const { user, error, isLoading } = useUser();
 
   if (isLoading) return <div>Loading...</div>;

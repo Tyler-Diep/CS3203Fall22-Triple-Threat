@@ -12,15 +12,23 @@ import {
   Button,
   Typography,
   Stack,
+  IconButton,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import Link from "next/link";
+import ReplyIcon from "@mui/icons-material/Reply";
+
+import { PREPEND, REMOVE_FROM_COMPLETE, TOGGLE_COMPLETED} from "../redux/todosSlice";
+
 
 export default function CompletedTable() {
+  
+    // The rows in the completed table will be the todo entries from the deleted list
   const rows = useSelector((state) => state.todo.completed);
+  // Used to dispatch actions(ie add/remove from todo/deleted list)
+  const dispatch = useDispatch();
 
   const completedElements = rows.map((e) => (
-    <TableRow key={e.id}>
+        <TableRow key={e.id}>
       <TableCell padding="checkbox">
         <Checkbox color="success"></Checkbox>
       </TableCell>
@@ -29,8 +37,23 @@ export default function CompletedTable() {
         <Chip label={e.module} color="info" />
       </TableCell>
       <TableCell align="right">{e.date}</TableCell>
+      <TableCell padding="checkbox">
+                <IconButton
+                  edge="end"
+                  aria-label="comments"
+                  onClick={() => onClickDelete(e.id, e)}
+                >
+                  <ReplyIcon />
+                </IconButton>{" "}
+              </TableCell>
     </TableRow>
   ));
+
+  const onClickDelete = (todoID, todo) => {
+    dispatch(PREPEND(todo)); // Add todo to the list of regular todos
+    dispatch(TOGGLE_COMPLETED(todoID)); // Uncheckbox the todo 
+    dispatch(REMOVE_FROM_COMPLETE(todoID)); // Remove the todo from the list
+  };
 
   return (
     <div>

@@ -36,13 +36,17 @@ export const todosSlice = createSlice({
     PREPEND_COMPLETE: (state, action) => {
       state.completed =  state.completed.concat(state.todos.filter((todo) => todo.completed == true));
     },
+    // This is confusing because it actually removes from todos not completed
     REMOVE_COMPLETE: (state, action) => {
       state.todos = state.todos.filter((todo) => todo.completed == false);
-    }
+    },
+    REMOVE_FROM_COMPLETE: (state, action) => { // Remove from the deleted list
+      state.completed = state.completed.filter((todo) => todo.id != action.payload);
+    },
   },
 });
 
 export const { PREPEND, PREPEND_DELETE, REMOVE, TOGGLE_COMPLETED, 
-              PREPEND_COMPLETE, REMOVE_COMPLETE, REMOVE_DELETE} = todosSlice.actions;
+              PREPEND_COMPLETE, REMOVE_COMPLETE, REMOVE_DELETE, REMOVE_FROM_COMPLETE} = todosSlice.actions;
 
 export default todosSlice.reducer;
