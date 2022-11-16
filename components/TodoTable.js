@@ -133,7 +133,7 @@ export default function TodoTable() {
                 <Button 
                 variant="contained" 
                 color="success"
-                onClick={() => onClickClear()}>Clear</Button>
+                onClick={() => onClickClear()}>Complete</Button>
               </TableCell>
             </TableRow>
             <TableRow>
