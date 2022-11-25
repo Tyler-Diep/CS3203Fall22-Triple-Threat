@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import TodoTable from "../components/TodoTable";
+import ModuleTable from "../components/ModuleTable";
 import WelcomeHeader from "../components/WelcomeHeader";
 import NavBar from "../components/NavBar";
 import { useUser } from "@auth0/nextjs-auth0/";
@@ -16,7 +16,7 @@ export default function Home() {
     return (
       <main className={styles.main}>
         <WelcomeHeader />
-        <Link href="/api/auth/login"><Button variant="contained" color="success">Login</Button></Link>
+        <a href="/api/auth/login">Login</a>
       </main>
     );
   }
@@ -33,7 +33,7 @@ export default function Home() {
         <NavBar />
         <main className={styles.main}>
           <WelcomeHeader />
-          <TodoTable />
+          <ModuleTable />
         </main>
       </div>
     )

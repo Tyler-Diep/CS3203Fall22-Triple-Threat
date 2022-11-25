@@ -1,70 +1,179 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Chip from '@mui/material/Chip';
-import { Checkbox } from '@mui/material';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography'
+import * as React from "react";
+import {
+  Checkbox,
+  TextField,
+  Chip,
+  TableRow,
+  TableHead,
+  TableContainer,
+  TableCell,
+  TableBody,
+  Table,
+  Paper,
+  Button,
+  Typography,
+  IconButton,
+  Card,
+  CardActions,
+} from "@mui/material";
 
-const rows = [
-    {
-        task: 'Buy some bread and milk',
-        module: 'A Label',
-        date: '9/18/1998',
-        id: 1
-    },
-    {
-        task: 'Buy some milk and bread',
-        module: 'A Label',
-        date: '11/03/2001',
-        id: 2
-    },
-    {
-        task: 'Buy some bread, and, milk',
-        module: 'A Label',
-        date: '11/17/2004',
-        id: 3
-    },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { PREPEND, REMOVE, PREPEND_DELETE, TOGGLE_COMPLETED, PREPEND_COMPLETE, REMOVE_COMPLETE } from "../redux/todosSlice";
+
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function TodoTable() {
-    return (
-        <TableContainer 
-        component = {Paper}
-        sx = {{maxWidth: '600px'}}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell align='left' colSpan={3}
-                        sx = {{
-                            borderBottom: 'none' 
-                            }}>
-                                <Typography variant="h6">To-do List</Typography></TableCell>
-                        <TableCell align='right' sx = {{borderBottom: 'none'}}><Button variant = "contained" color="secondary">Add New</Button></TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell padding='checkbox'/>
-                        <TableCell>Task</TableCell>
-                        <TableCell align='center'>Module</TableCell>
-                        <TableCell align='right'>Due Date</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <TableRow key = {row.id}>
-                            <TableCell padding='checkbox'><Checkbox color='success'></Checkbox></TableCell>
-                            <TableCell>{row.task}</TableCell>
-                            <TableCell align='center'><Chip label={row.module} color="info"/></TableCell>
-                            <TableCell align='right'>{row.date}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
+  const rows = useSelector((state) => state.todo.todos);
+  const dispatch = useDispatch();
+
+  const [dateValue, setDateValue] = React.useState("");
+
+  const onDateInput = (event) => {
+    setDateValue(event.target.value);
+  };
+
+  const [module, setModule] = React.useState("");
+
+  const onModuleInput = (event) => {
+    setModule(event.target.value);
+  };
+
+  const [task, setTask] = React.useState("");
+
+  const onTaskInput = (event) => {
+    setTask(event.target.value);
+  };
+
+  const [id, setId] = React.useState(4);
+
+  const [checked, setChecked] = React.useState(false);
+
+  const onCheck = (event) => {
+    setChecked({...checked, [event.target.checked] : event.target.checked})
+  }
+
+  const onClickCheck = (todoID) => {
+    dispatch(TOGGLE_COMPLETED(todoID));
+  }
+
+  const onClickDelete = (todoID, todo) => {
+    dispatch(PREPEND_DELETE(todo)); // Add todo to the list of deleted todos
+    dispatch(REMOVE(todoID)); // Remove the todo from the list
+  };
+
+  const onClickClear = () => {
+    dispatch(PREPEND_COMPLETE()); // Add all checked tasks to the list of completed todos
+    dispatch(REMOVE_COMPLETE()); // Clear all checked tasks from the todo list
+  }
+
+  return (
+    <React.Fragment>
+      <Card sx={{ m: 2 }}>
+        <CardActions>
+          <TextField sx={{ m: 1 }}
+            label="Task"
+            value={task}
+            onChange={onTaskInput}>
+          </TextField>
+          <TextField sx={{ m: 1 }}
+            label="Module"
+            value={module}
+            onChange={onModuleInput}>
+          </TextField>
+          <TextField
+            id="date"
+            label="Date"
+            type="datetime-local"
+            sx={{ width: 220, m: 1 }}
+            onChange={onDateInput}
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <Button sx={{ m: 1 }}
+            variant="contained"
+            color="secondary"
+            onClick={() => {
+              if (task != "" && module != "" && dateValue != "") {
+                dispatch(
+                  PREPEND({
+                    task: task,
+                    module: module,
+                    date:
+                      dateValue.split("T")[0] +
+                      "\n" +
+                      dateValue.split("T")[1],
+                    id: id,
+                    completed: false,
+                  })
+                ),
+                  setId(id + 1),
+                  console.log(rows);
+              }
+            }}
+          >
+            Add New
+          </Button>
+        </CardActions>
+      </Card>
+      <TableContainer component={Paper} sx={{ maxWidth: "750px" }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell
+                align="left"
+                colSpan={4}
+                sx={{
+                  borderBottom: "none",
+                }}
+              >
+                <Typography variant="h6">To-do List</Typography>
+              </TableCell>
+              <TableCell align="right" sx={{ borderBottom: "none" }}>
+                <Button 
+                variant="contained" 
+                color="success"
+                onClick={() => onClickClear()}>Complete</Button>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell padding="checkbox"></TableCell>
+              <TableCell align="left">Task</TableCell>
+              <TableCell align="center">Module</TableCell>
+              <TableCell align="right">Date</TableCell>
+              <TableCell></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell padding="checkbox">
+                  <Checkbox
+                  checked = {row.completed}
+                  onChange = {onCheck}
+                  onClick={() => onClickCheck(row.id)}
+                  color="success">
+                  </Checkbox>
+                </TableCell>
+                <TableCell>{row.task}</TableCell>
+                <TableCell align="center">
+                  <Chip label={row.module} color="info" />
+                </TableCell>
+                <TableCell align="right">{row.date}</TableCell>
+                <TableCell padding="checkbox">
+                  <IconButton
+                    edge="end"
+                    aria-label="comments"
+                    onClick={() => onClickDelete(row.id, row)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>{" "}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </React.Fragment>
+  );
 }

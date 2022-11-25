@@ -1,11 +1,9 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import TodoTable from "../components/TodoTable";
+import DeletedTable from "../components/DeletedTable";
 import WelcomeHeader from "../components/WelcomeHeader";
 import NavBar from "../components/NavBar";
 import { useUser } from "@auth0/nextjs-auth0/";
-import { Button } from "@mui/material";
-import Link from "next/link";
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
@@ -16,7 +14,7 @@ export default function Home() {
     return (
       <main className={styles.main}>
         <WelcomeHeader />
-        <Link href="/api/auth/login"><Button variant="contained" color="success">Login</Button></Link>
+        <a href="/api/auth/login">Login</a>
       </main>
     );
   }
@@ -33,7 +31,7 @@ export default function Home() {
         <NavBar />
         <main className={styles.main}>
           <WelcomeHeader />
-          <TodoTable />
+          <DeletedTable />
         </main>
       </div>
     )
