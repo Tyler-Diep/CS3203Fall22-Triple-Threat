@@ -1,14 +1,12 @@
 //Server.js will be entry point of app
 
 const express = require('express')
-//const router = express.Router();
-//module.exports = router;
 const mongoose = require('mongoose')
 const app = express(); //Transfer contents of Exptress into app
-//const routes = require('./routes/routes');
+const routes = require('./routes/routes');
 
 //Takes in base endpoint and contents of routes. All endpoints will start from /api
-//app.use('/api', routes); //Could be a point of error
+app.use('/api', routes); //Could be a point of error
 
 //Database URI
 const uri = "mongodb+srv://TripleThreat:Tyl3r@softengfall2022-triplet.c1ph4p1.mongodb.net/?retryWrites=true&w=majority";
