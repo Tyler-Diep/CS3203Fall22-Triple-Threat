@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-module.exports = router;
 const Model = require('../models/model');
 //Find by ID | Get by ID | Update
 
@@ -12,13 +11,16 @@ router.post('/post', (req, res) => {
 
 //Get all Method 
 router.get('/getAll/', async (req, res) => {
+    //res.send('Get All is Working');
+    res.send('ID: ${req.params.id}')
+    /*
     try{
         const data = await Model.find();
         res.json(data);
     }
     catch(error){
         res.status(500).json({message: error.message});
-    }
+    }*/
 })
 
 //Get by Data Based on ID
@@ -57,3 +59,5 @@ router.patch('/update/:id', async (req, res) => {
 router.delete('/delete/:id', (req, res) => {
     res.send('Delete by ID API')
 }) */
+
+module.exports = router;

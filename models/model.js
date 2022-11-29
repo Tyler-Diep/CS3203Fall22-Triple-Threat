@@ -1,6 +1,20 @@
 const mongoose = require('mongoose');
 
 const dataSchema = new mongoose.Schema({
+
+    tenant: String,
+    connection: String,
+    email: String,
+    password: String,
+    debug: Boolean,
+    email_verified: String,
+    data: {
+        todo: Array,
+        deleted: Array,
+        completed: Array
+    }
+
+    /*
     tenant: {
         required: true,
         type: String
@@ -25,11 +39,12 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: Boolean
     },
-    data: [{
+    data: {
         todo: Array,
         deleted: Array,
         completed: Array
-    }]
-})
+    }*/
 
-module.exports = mongoose.model('Data', dataSchema)
+}, {collection: 'users'});
+
+module.exports = mongoose.model('users', dataSchema)
