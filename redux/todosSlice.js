@@ -19,6 +19,7 @@ export const todosSlice = createSlice({
   reducers: {
     PREPEND: (state, action) => { // Add to beginning of the todo list
       state.todos = [action.payload, ...state.todos];
+      //Save state.todos to sync with database
     },
     REMOVE: (state, action) => { // Remove from the todo list
       state.todos = state.todos.filter((todo) => todo.id != action.payload);
