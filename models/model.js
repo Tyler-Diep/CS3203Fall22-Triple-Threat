@@ -47,4 +47,4 @@ const dataSchema = new mongoose.Schema({
 
 }, {collection: 'users'});
 
-module.exports = mongoose.model.users || mongoose.model('users', dataSchema)
+module.exports = mongoose.models.User || mongoose.model('User', dataSchema)
