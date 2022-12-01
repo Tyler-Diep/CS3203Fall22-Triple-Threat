@@ -68,7 +68,7 @@ export default function TodoTable() {
   const [checked, setChecked] = React.useState(false);
 
   const onCheck = (event) => {
-    setChecked({...checked, [event.target.checked] : event.target.checked})
+    setChecked({ ...checked, [event.target.checked]: event.target.checked })
   }
 
   const onClickCheck = (todoID) => {
@@ -149,10 +149,10 @@ export default function TodoTable() {
                 <Typography variant="h6">To-do List</Typography>
               </TableCell>
               <TableCell align="right" sx={{ borderBottom: "none" }}>
-                <Button 
-                variant="contained" 
-                color="success"
-                onClick={() => onClickClear()}>Complete</Button>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={() => onClickClear()}>Complete</Button>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -170,8 +170,8 @@ export default function TodoTable() {
                   <Checkbox
                   checked = {row.completed}
                   onChange = {onCheck}
-                  onClick={() => onClickCheck(row.id)}
-                  color="success">
+                    onClick={() => onClickCheck(row.id)}
+                    color="success">
                   </Checkbox>
                 </TableCell>
                 <TableCell>{row.task}</TableCell>
