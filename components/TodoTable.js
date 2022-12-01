@@ -56,7 +56,7 @@ export default function TodoTable() {
   })
 
   const comp = useSelector((state) => state.todo.completed);
-  del.forEach((row) => {
+  comp.forEach((row) => {
     if (val < row.id) val = row.id;
   })
 
