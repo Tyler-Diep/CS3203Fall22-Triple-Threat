@@ -8,11 +8,9 @@ const dataSchema = new mongoose.Schema({
     password: String,
     debug: Boolean,
     email_verified: String,
-    data: {
-        todo: Array,
-        deleted: Array,
-        completed: Array
-    }
+    todos: Array,
+    deleted: Array,
+    completed: Array,
 
     /*
     tenant: {
@@ -47,4 +45,4 @@ const dataSchema = new mongoose.Schema({
 
 }, {collection: 'users'});
 
-module.exports = mongoose.models.User || mongoose.model('User', dataSchema)
+export default mongoose.models.User || mongoose.model('User', dataSchema, 'users')
