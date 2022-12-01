@@ -38,13 +38,32 @@ export default function TodoTable() {
     setModule(event.target.value);
   };
 
+  
+  let val = 0;
+
+  rows.forEach((row) => {
+    if (val < row.id) val = row.id;
+  })
+
+  const del = useSelector((state) => state.todo.deleted);
+  del.forEach((row) => {
+    if (val < row.id) val = row.id;
+  })
+
+  const comp = useSelector((state) => state.todo.completed);
+  comp.forEach((row) => {
+    if (val < row.id) val = row.id;
+  })
+
+  const [id, setId] = React.useState(val + 1);
+
+
   const [task, setTask] = React.useState("");
 
   const onTaskInput = (event) => {
     setTask(event.target.value);
+    console.log(val);
   };
-
-  const [id, setId] = React.useState(rows.size);
 
   const [checked, setChecked] = React.useState(false);
 
