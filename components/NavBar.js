@@ -43,11 +43,11 @@ export default function TableNav() {
 
     return (
         <Stack direction="row" justifyContent="center" spacing={2} padding={1}>
-        <Link href="/" passHref><Button color="secondary">To-do List</Button></Link>
-        <Link href="/modules" passHref><Button color="secondary">Modules</Button></Link>
-        <Link href="/completed" passHref><Button color="secondary">Completed Tasks</Button></Link>
-        <Link href="/deleted" passHref><Button color="secondary">Deleted Tasks</Button></Link>
-        <Link href="/api/auth/logout"><Button onClick={() => handleLogOut()} variant="contained" color="success">Logout</Button></Link>
+        <Link href="/" passHref><Button onClick={() => handleLogOut(todos,deleted,completed, user.email)} color="secondary">To-do List</Button></Link>
+        <Link href="/modules" passHref><Button onClick={() => handleLogOut(todos,deleted,completed, user.email)} color="secondary">Modules</Button></Link>
+        <Link href="/completed" passHref><Button onClick={() => handleLogOut(todos,deleted,completed, user.email)} color="secondary">Completed Tasks</Button></Link>
+        <Link href="/deleted" passHref><Button onClick={() => handleLogOut(todos,deleted,completed, user.email)} color="secondary">Deleted Tasks</Button></Link>
+        <Link href="/api/auth/logout"><Button onClick={() => handleLogOut(todos,deleted,completed, user.email)} variant="contained" color="success">Logout</Button></Link>
         </Stack>
     )
 }
