@@ -44,7 +44,7 @@ export default function TodoTable() {
     setTask(event.target.value);
   };
 
-  const [id, setId] = React.useState(4);
+  const [id, setId] = React.useState(rows.size);
 
   const [checked, setChecked] = React.useState(false);
 

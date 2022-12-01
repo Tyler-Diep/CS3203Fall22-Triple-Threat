@@ -24,7 +24,6 @@ export const todosSlice = createSlice({
     },
     TOGGLE_COMPLETED: (state, action) => {
       const todo = state.todos.find(todo => todo.id === action.payload);
-      todo.completed = !todo.completed;
     },
     PREPEND_COMPLETE: (state, action) => {
       state.completed =  state.completed.concat(state.todos.filter((todo) => todo.completed == true));
