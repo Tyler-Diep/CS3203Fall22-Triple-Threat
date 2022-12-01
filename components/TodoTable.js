@@ -44,12 +44,28 @@ export default function TodoTable() {
     setTask(event.target.value);
   };
 
-  const [id, setId] = React.useState(rows.size);
+  let val = 0;
+
+  rows.forEach((row) => {
+    if (val < row.id) val = row.id;
+  })
+
+  const del = useSelector((state) => state.todo.deleted);
+  del.forEach((row) => {
+    if (val < row.id) val = row.id;
+  })
+
+  const comp = useSelector((state) => state.todo.completed);
+  del.forEach((row) => {
+    if (val < row.id) val = row.id;
+  })
+
+  const [id, setId] = React.useState(val + 1);
 
   const [checked, setChecked] = React.useState(false);
 
   const onCheck = (event) => {
-    setChecked({...checked, [event.target.checked] : event.target.checked})
+    setChecked({ ...checked, [event.target.checked]: event.target.checked })
   }
 
   const onClickCheck = (todoID) => {
@@ -109,11 +125,13 @@ export default function TodoTable() {
                 ),
                   setId(id + 1),
                   console.log(rows);
+                console.log(val);
               }
             }}
           >
             Add New
           </Button>
+          <Button onClick={() => { console.log(val); console.log(rows);}}>Hi</Button>
         </CardActions>
       </Card>
       <TableContainer component={Paper} sx={{ maxWidth: "750px" }}>
@@ -130,10 +148,10 @@ export default function TodoTable() {
                 <Typography variant="h6">To-do List</Typography>
               </TableCell>
               <TableCell align="right" sx={{ borderBottom: "none" }}>
-                <Button 
-                variant="contained" 
-                color="success"
-                onClick={() => onClickClear()}>Complete</Button>
+                <Button
+                  variant="contained"
+                  color="success"
+                  onClick={() => onClickClear()}>Complete</Button>
               </TableCell>
             </TableRow>
             <TableRow>
@@ -149,10 +167,10 @@ export default function TodoTable() {
               <TableRow key={row.id}>
                 <TableCell padding="checkbox">
                   <Checkbox
-                  checked = {row.completed}
-                  onChange = {onCheck}
-                  onClick={() => onClickCheck(row.id)}
-                  color="success">
+                    checked={row.completed}
+                    onChange={onCheck}
+                    onClick={() => onClickCheck(row.id)}
+                    color="success">
                   </Checkbox>
                 </TableCell>
                 <TableCell>{row.task}</TableCell>
