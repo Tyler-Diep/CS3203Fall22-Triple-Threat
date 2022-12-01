@@ -131,7 +131,6 @@ export default function TodoTable() {
           >
             Add New
           </Button>
-          <Button onClick={() => { console.log(val); console.log(rows);}}>Hi</Button>
         </CardActions>
       </Card>
       <TableContainer component={Paper} sx={{ maxWidth: "750px" }}>
