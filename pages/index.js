@@ -9,17 +9,17 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_COMPLETED, SET_DELETED, SET_TODOS } from "../redux/todosSlice";
 
-const handleLogIn = async(userEmail) => {
+const handleLogIn = async (userEmail) => {
   console.log(userEmail);
   const dispatch = useDispatch();
 
-  const response = await fetch("/api/id?" + new URLSearchParams({email: userEmail}), {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      },
-    });
-  
+  const response = await fetch("/api/id?" + new URLSearchParams({ email: userEmail }), {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
+  });
+
   const data = await response.json();
 
   console.log(data.data);
@@ -30,9 +30,9 @@ const handleLogIn = async(userEmail) => {
 }
 
 export default function Home() {
-  
+
   const { user, error, isLoading } = useUser();
-  
+
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;

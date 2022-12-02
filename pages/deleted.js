@@ -4,6 +4,7 @@ import DeletedTable from "../components/DeletedTable";
 import WelcomeHeader from "../components/WelcomeHeader";
 import NavBar from "../components/NavBar";
 import { useUser } from "@auth0/nextjs-auth0/";
+import { Typography, Box } from "@mui/material";
 
 export default function Home() {
   const { user, error, isLoading } = useUser();
@@ -30,7 +31,11 @@ export default function Home() {
 
         <NavBar />
         <main className={styles.main}>
-          <WelcomeHeader />
+        <Box sx={{ p: 4 }}>
+          <Typography variant="h1" color="primary">
+            Deleted Tasks
+          </Typography>
+          </Box>
           <DeletedTable />
         </main>
       </div>
