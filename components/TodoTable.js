@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PREPEND, REMOVE, PREPEND_DELETE, TOGGLE_COMPLETED, PREPEND_COMPLETE, REMOVE_COMPLETE } from "../redux/todosSlice";
 
 import DeleteIcon from "@mui/icons-material/Delete";
+import { AddTaskOutlined } from "@mui/icons-material";
 
 export default function TodoTable() {
   const rows = useSelector((state) => state.todo.todos);
@@ -55,14 +56,17 @@ export default function TodoTable() {
     if (val < row.id) val = row.id;
   })
 
-  const [id, setId] = React.useState(val + 1);
+  val += 1;
+
+  const [taskID, setId] = React.useState(val);
 
 
   const [task, setTask] = React.useState("");
 
   const onTaskInput = (event) => {
     setTask(event.target.value);
-    console.log(val);
+    console.log("The current taskID is " + taskID);
+
   };
 
   const [checked, setChecked] = React.useState(false);
@@ -122,11 +126,11 @@ export default function TodoTable() {
                       dateValue.split("T")[0] +
                       "\n" +
                       dateValue.split("T")[1],
-                    id: id,
+                    id: taskID,
                     completed: false,
                   })
                 ),
-                  setId(id + 1),
+                  setId(taskID + 1),
                   console.log(rows);
               }
             }}
