@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PREPEND, REMOVE, PREPEND_DELETE, TOGGLE_COMPLETED, PREPEND_COMPLETE, REMOVE_COMPLETE } from "../redux/todosSlice";
 
 import DeleteIcon from "@mui/icons-material/Delete";
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import { AddTaskOutlined } from "@mui/icons-material";
 
 export default function TodoTable() {
@@ -84,9 +85,9 @@ export default function TodoTable() {
     dispatch(REMOVE(todoID)); // Remove the todo from the list
   };
 
-  const onClickClear = () => {
-    dispatch(PREPEND_COMPLETE()); // Add all checked tasks to the list of completed todos
-    dispatch(REMOVE_COMPLETE()); // Clear all checked tasks from the todo list
+  const onClickClear = (todoID, todo) => {
+    dispatch(PREPEND_COMPLETE(todo)); // Add all checked tasks to the list of completed todos
+    dispatch(REMOVE(todoID)); // Clear all checked tasks from the todo list
   }
 
   return (
@@ -152,12 +153,6 @@ export default function TodoTable() {
               >
                 <Typography variant="h6">To-do List</Typography>
               </TableCell>
-              <TableCell align="right" sx={{ borderBottom: "none" }}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  onClick={() => onClickClear()}>Complete</Button>
-              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell padding="checkbox"></TableCell>
@@ -171,12 +166,13 @@ export default function TodoTable() {
             {rows.map((row) => (
               <TableRow key={row.id}>
                 <TableCell padding="checkbox">
-                  <Checkbox
-                  checked = {row.completed}
-                  onChange = {onCheck}
-                    onClick={() => onClickCheck(row.id)}
-                    color="success">
-                  </Checkbox>
+                <IconButton
+                    edge="end"
+                    aria-label="comments"
+                    onClick={() => onClickClear()}
+                  >
+                    <AssignmentTurnedInIcon />
+                  </IconButton>{" "}
                 </TableCell>
                 <TableCell>{row.task}</TableCell>
                 <TableCell align="center">
