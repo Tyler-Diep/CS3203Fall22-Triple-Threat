@@ -1,13 +1,17 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import DeletedTable from "../components/DeletedTable";
+import TodoTable from "../components/TodoTable";
 import WelcomeHeader from "../components/WelcomeHeader";
 import NavBar from "../components/NavBar";
 import { useUser } from "@auth0/nextjs-auth0/";
-import { Typography, Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
+import Link from "next/link";
+import { Typography } from "@mui/material";
 
-export default function Home() {
+export default function Todos() {
+
   const { user, error, isLoading } = useUser();
+
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -15,7 +19,7 @@ export default function Home() {
     return (
       <main className={styles.main}>
         <WelcomeHeader />
-        <a href="/api/auth/login">Login</a>
+        <Link href="/api/auth/login"><Button variant="contained" color="success">Login</Button></Link>
       </main>
     );
   }
@@ -33,10 +37,11 @@ export default function Home() {
         <main className={styles.main}>
         <Box sx={{ p: 4 }}>
           <Typography variant="h1" color="primary">
-            Deleted Tasks
+            Todo List
           </Typography>
           </Box>
-          <DeletedTable />
+          <h1>{user.email}</h1>
+          <TodoTable />
         </main>
       </div>
     )

@@ -1,18 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit/";
 
 export const todosSlice = createSlice({
+
   name: "todo",
   initialState: {
-    todos: [ // Our inital todo list has one todo
-      {
-        task: "Buy some bread and milk",
-        module: "Example",
-        date: "9-18-1998",
-        time: "23:59",
-        completed: false,
-        id: 1,
-      },
-    ],
+    todos: [],
     deleted: [],
     completed: [],
   },
@@ -32,7 +24,6 @@ export const todosSlice = createSlice({
     },
     TOGGLE_COMPLETED: (state, action) => {
       const todo = state.todos.find(todo => todo.id === action.payload);
-      todo.completed = !todo.completed;
     },
     PREPEND_COMPLETE: (state, action) => {
       state.completed =  state.completed.concat(state.todos.filter((todo) => todo.completed == true));
@@ -44,10 +35,19 @@ export const todosSlice = createSlice({
     REMOVE_FROM_COMPLETE: (state, action) => { // Remove from the deleted list
       state.completed = state.completed.filter((todo) => todo.id != action.payload);
     },
+    SET_TODOS: (state, action) => { 
+      state.todos = action.payload;
+    },
+    SET_COMPLETED: (state, action) => { 
+      state.completed = action.payload;
+    },
+    SET_DELETED: (state, action) => { 
+      state.deleted = action.payload;
+    },
   },
 });
 
 export const { PREPEND, PREPEND_DELETE, REMOVE, TOGGLE_COMPLETED, 
-              PREPEND_COMPLETE, REMOVE_COMPLETE, REMOVE_DELETE, REMOVE_FROM_COMPLETE} = todosSlice.actions;
+              PREPEND_COMPLETE, REMOVE_COMPLETE, REMOVE_DELETE, REMOVE_FROM_COMPLETE, SET_COMPLETED, SET_DELETED, SET_TODOS} = todosSlice.actions;
 
 export default todosSlice.reducer;
