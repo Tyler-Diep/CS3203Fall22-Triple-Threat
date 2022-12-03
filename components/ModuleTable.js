@@ -71,7 +71,7 @@ export default function ModuleTable() {
             <TableRow>
               <TableCell
                 align="left"
-                colSpan={3}
+                colSpan={4}
                 sx={{
                   borderBottom: "none",
                 }}
@@ -80,11 +80,9 @@ export default function ModuleTable() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell padding="checkbox"></TableCell>
               <TableCell align="left">Task</TableCell>
               <TableCell align="center">Module</TableCell>
               <TableCell align="right">Date</TableCell>
-              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>{filteredElements}</TableBody>
