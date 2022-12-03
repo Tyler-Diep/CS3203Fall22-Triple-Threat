@@ -39,9 +39,6 @@ export default function ModuleTable() {
     .filter((e) => e.module == moduleFilter)
     .map((e) => (
       <TableRow key={e.id}>
-        <TableCell padding="checkbox">
-          <Checkbox color="success"></Checkbox>
-        </TableCell>
         <TableCell>{e.task}</TableCell>
         <TableCell align="center">
           <Chip label={e.module} color="info" />

@@ -27,7 +27,7 @@ export const todosSlice = createSlice({
     },
     PREPEND_COMPLETE: (state, action) => {
       //state.completed =  state.completed.concat(state.todos.filter((todo) => todo.completed == true));
-      state.completed = [action.payload, ...state.deleted];
+      state.completed = [action.payload, ...state.completed];
     },
     // This is confusing because it actually removes from todos not completed
     REMOVE_COMPLETE: (state, action) => {

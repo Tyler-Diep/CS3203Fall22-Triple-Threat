@@ -169,7 +169,7 @@ export default function TodoTable() {
                 <IconButton
                     edge="end"
                     aria-label="comments"
-                    onClick={() => onClickClear()}
+                    onClick={() => onClickClear(row.id, row)}
                   >
                     <AssignmentTurnedInIcon />
                   </IconButton>{" "}
