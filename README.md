@@ -1,3 +1,18 @@
+## Documentation
+Used in reference for our `server.js`, `model.js`, and files within our `pages/api` folder
+https://itnext.io/using-mongoose-with-next-js-11-b2a08ff2dd3c
+
+Auth0 used for User Login and to send User Information to MongoDB
+https://auth0.com/
+
+MongoDB used for creating a Database to store user data
+https://www.mongodb.com/
+
+MaterialUI for UI elements
+https://mui.com/
+
+NextJS
+https://nextjs.org/
 
 ## Getting Started
 
