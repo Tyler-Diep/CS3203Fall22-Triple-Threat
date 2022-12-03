@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
 First, run the development server:
 
 ```bash
+npm install
+# Then
 npm run dev
-# or
-yarn dev
 ```
+Open http://localhost:3000 with your browser and you will see welcome page that allows you to login/signup.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Within "Your Agenda"
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Within the Welcome Page, click either "TO-DO LIST" to get started.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### TO-DO LIST
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+From here, you can add to-dos by entering a name in the "task" and "module" text boxes respectively. Then, select a date from the calendar and progress to typing the time your to-do is due with the left/right arrow keys. Now, you can create your to-do.
 
-## Learn More
+From here, you can either click the icons to the left or right of the to-do to send them to completed or deleted respectively.
 
-To learn more about Next.js, take a look at the following resources:
+### MODULES
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Here, you can filter your tasks in your to-do list by module, to see what must be done with each module.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### COMPLETED TASKS / DELETED TASKS
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Depending on which respective button was picked to add them in the "Completed Tasks" or "Deleted Tasks" tab, then will be added in here and are available for viewing and reverting back to the to-do list.
