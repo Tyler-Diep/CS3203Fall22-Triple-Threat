@@ -14,6 +14,9 @@ https://mui.com/
 NextJS
 https://nextjs.org/
 
+Redux
+https://redux.js.org/
+
 ## Getting Started
 
 First, run the development server:
